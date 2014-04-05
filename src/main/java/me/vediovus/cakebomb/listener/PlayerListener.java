@@ -7,6 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerListener implements Listener {
@@ -16,15 +17,18 @@ public class PlayerListener implements Listener {
         Player p = event.getPlayer();
         if (event.getClickedBlock().getType().equals(Material.CAKE_BLOCK)) {
             CakeBombConstructor cake = new CakeBombConstructor(p.getName(), event.getClickedBlock().getLocation());
-            if (cake.isBomb()) {
+            if (cake.isBomb() && event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
                 p.getWorld().createExplosion(p.getLocation().getX(),p.getLocation().getY(),p.getLocation().getZ(),1.0F,false,false);
                 p.playSound(p.getLocation(), Sound.NOTE_SNARE_DRUM,5.0F,4.0F);
-                p.sendMessage(ChatColor.RED + "This Cake is rigged!");
+                p.sendMessage(ChatColor.RED + "This Cake is rigged! " + ChatColor.GRAY + cake.getPlayerWhoPlaced() + ChatColor.RED + " got you!");
+                cake.removeFromList();
             } else {
                 if (p.hasPermission("cakebomb.create")) {
-                    if (p.getItemInHand().getType().equals(Material.SULPHUR) && p.getItemInHand().getAmount() == 5) {
+                    if (p.getItemInHand().getType().equals(Material.SULPHUR) && p.getItemInHand().getAmount() >= 5) {
+                        p.getItemInHand().setAmount(p.getItemInHand().getAmount() - 5);
                         p.sendMessage(ChatColor.GREEN + "Your cake has been planted.");
                         cake.addToList();
+                        p.updateInventory();
                     }
                 }
             }

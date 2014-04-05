@@ -33,4 +33,8 @@ public class CakeBombConstructor {
         }
     }
 
+    public void removeFromList() {
+        activeBombs.remove(location);
+    }
+
 }
