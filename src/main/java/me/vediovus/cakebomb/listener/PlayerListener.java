@@ -19,7 +19,7 @@ public class PlayerListener implements Listener {
             if (cake.isBomb()) {
                 p.getWorld().createExplosion(p.getLocation().getX(),p.getLocation().getY(),p.getLocation().getZ(),1.0F,false,false);
                 p.playSound(p.getLocation(), Sound.NOTE_SNARE_DRUM,5.0F,4.0F);
-                p.sendMessage(ChatColor.RED + "Cake Explodes");
+                p.sendMessage(ChatColor.RED + "This Cake is rigged!");
             } else {
                 if (p.hasPermission("cakebomb.create")) {
                     if (p.getItemInHand().getType().equals(Material.SULPHUR) && p.getItemInHand().getAmount() == 5) {
