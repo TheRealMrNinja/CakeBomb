@@ -6,7 +6,7 @@
 
     <groupId>me.vediovus</groupId>
     <artifactId>CakeBomb</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>debug</module>
