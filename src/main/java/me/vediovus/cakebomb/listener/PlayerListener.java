@@ -22,7 +22,7 @@ public class PlayerListener implements Listener {
                 Location location = event.getClickedBlock().getLocation();
                 if(CakeBomb.bombLocations.containsKey(location)) {
                     Bomb bomb = new Bomb(CakeBomb.bombLocations.get(location),location);
-                    if(p.getName().equalsIgnoreCase(bomb.getWhoPlaced())) {
+                    if(!p.getName().equalsIgnoreCase(bomb.getWhoPlaced())) {
                         location.getWorld().createExplosion(location.getX(),location.getY(),location.getZ(),2.0F,false,false);
                         event.setCancelled(true);
                         event.getClickedBlock().setType(Material.AIR);
